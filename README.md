@@ -8,7 +8,7 @@ the same coordinates when asked to do so.
 
 The game ends once all the mines have been discovered.
 
-IMPORT FROM FILE ----------
+IMPORT FROM FILE
 
 If you would like to import a custom grid please use the following format:
 
