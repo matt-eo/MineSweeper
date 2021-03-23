@@ -111,10 +111,13 @@ public class MineSweeper {
         return numberOfMarkersPlaced == numberOfMines && minesDiscoveredByPlayer == numberOfMines;
     }
 
-    private void createMineField() {
+    /*
+    Under Test
+     */
+    public void createMineField() {
         if (numberOfMines > (rows * columns)) {
             System.out.println("ERROR - The number of mines is greater than the available spaces!");
-            return;
+            throw new IllegalStateException("NUMBER OF MINES >> AVAILABLE CELLS");
         }
 
         // Populate array
@@ -134,7 +137,11 @@ public class MineSweeper {
         }
     }
 
-    private void createMineFieldFromFile() {
+    /**
+     * @return a char[][] for Testing purposes
+     * Method should be PRIVATE
+     */
+    public char[][] createMineFieldFromFile() {
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -163,9 +170,11 @@ public class MineSweeper {
 
             bufferedReader.close();
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return mineField;
     }
 
     private void scanForMines() {
@@ -233,13 +242,13 @@ public class MineSweeper {
     private void printMineField(char[][] mineField) {
         printHeader();
         int i = 1;
-        for (char[] c : mineField) {
+        for (char[] row : mineField) {
             System.out.print(i + " | ");
-            for (char x : c) {
-                if (x == 'X') {
+            for (char cell : row) {
+                if (cell == 'X') {
                     System.out.print('.');
                 } else {
-                    System.out.print(x);
+                    System.out.print(cell);
                 }
                 System.out.print(' ');
             }
@@ -264,5 +273,9 @@ public class MineSweeper {
         }
         System.out.print("-");
         System.out.println();
+    }
+
+    public void setNumberOfMines(int numberOfMines) {
+        this.numberOfMines = numberOfMines;
     }
 }
